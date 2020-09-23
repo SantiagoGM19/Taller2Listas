@@ -36,7 +36,6 @@ public class ListaDoble<T extends Number> implements Ilist<T>
        if(ListaVacia() == true)
        {
            this.head = this. tail = nodo;
-           this.tamaño++;
        }
        else
        {
@@ -44,8 +43,8 @@ public class ListaDoble<T extends Number> implements Ilist<T>
            NodoDoble<T> current = this.head;
            this.head = nodo;
            current.setNodoAnterior(nodo);
-           this.tamaño++;
        }
+       this.tamaño++;
     }
 
     @Override

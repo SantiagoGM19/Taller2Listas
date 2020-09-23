@@ -109,6 +109,7 @@ public class ListaCircularDoble<T extends Number> implements Ilist<T>
         {
             NodoDoble<T> current = this.head.getSiguienteNodo();
             this.head = current;
+            this.tamaño--;
         }
     }
     
