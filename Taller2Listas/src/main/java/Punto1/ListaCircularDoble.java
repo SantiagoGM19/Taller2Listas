@@ -50,7 +50,7 @@ public class ListaCircularDoble<T extends Number> implements Ilist<T>
                     this.tail = nodo;
                     this.tail.setSiguienteNodo(this.head);
                     this.tail.setNodoAnterior(current);
-                    this.head.setNodoAnterior(nodo);
+                    this.head.setNodoAnterior(this.tail);
                     break;
                 }
                 i = i.getSiguienteNodo();
@@ -58,7 +58,8 @@ public class ListaCircularDoble<T extends Number> implements Ilist<T>
         }
         this.tamaño++;
     }
-
+    
+    //punto del taller
     @Override
     public void EliminarUltimoNodo() 
     {
@@ -81,7 +82,14 @@ public class ListaCircularDoble<T extends Number> implements Ilist<T>
         NodoDoble<T> i = this.head;
         while(i != null)
         {
-            System.out.println(i.getDato().intValue());
+            if(i == this.head)
+            {
+                System.out.println(i.getDato().intValue() + "(head)");
+            }
+            else
+            {
+                System.out.println(i.getDato().intValue());
+            }
             if(i.getSiguienteNodo() == this.head)
             {
                 break;
@@ -90,6 +98,7 @@ public class ListaCircularDoble<T extends Number> implements Ilist<T>
         }
     }
     
+    // punto del taller
     public void EliminarPrimerNodo()
     {
         if(this.ListaVacia() == true)
@@ -103,54 +112,90 @@ public class ListaCircularDoble<T extends Number> implements Ilist<T>
         }
     }
     
+    //punto del taller
     public void MostrarDatosDescendente()
     {
-        NodoDoble<T> i = this.head;
-        NodoDoble<T> mayorNodo = this.head;
-        int [] verificados = new int[this.tamaño];
-        int cont = -1;
-        int z = 1;
-        while( z != 0)
+        NodoDoble<T> i = this.tail;
+        while(i != null)
+        {
+            if(i == this.tail)
+            {
+                System.out.println(i.getDato().intValue() + "(tail)");
+            }
+            else
+            {
+                System.out.println(i.getDato().intValue());
+            }
+            if(i.getNodoAnterior() == this.tail)
+            {
+                break;
+            }
+            
+            i = i.getNodoAnterior();
+        }
+    }
+    
+    //punto del taller
+    public void AñadirOrdenadamente(T dato)
+    {
+        if(this.ListaVacia() == true)
+        {
+            this.añadirNodo(dato);
+        }
+        else
         {
             
-            while(i != null)
+            NodoDoble<T> nodo = new NodoDoble<>(dato);
+            if(dato.intValue() == this.head.getDato().intValue() || dato.intValue() == this.tail.getDato().intValue())
             {
-                if(i.getDato().intValue() > mayorNodo.getDato().intValue())
+                System.out.println("El dato: " + dato.intValue() + 
+                        " no se puede agregar porque ya se encuentra en la lista");
+            }
+            if(nodo.getDato().intValue()< this.head.getDato().intValue())
+            {
+                NodoDoble<T> current = this.head;
+                this.head = nodo;
+                this.head.setSiguienteNodo(current);
+                current.setNodoAnterior(this.head);
+                this.head.setNodoAnterior(this.tail);
+                this.tail.setSiguienteNodo(this.head);
+            }
+            else if(nodo.getDato().intValue() > this.tail.getDato().intValue())
+            {
+                NodoDoble<T> current = this.tail;
+                this.tail = nodo;
+                this.tail.setSiguienteNodo(this.head);
+                this.tail.setNodoAnterior(current);
+                current.setSiguienteNodo(nodo);
+                this.head.setNodoAnterior(this.tail);
+            }
+            else if(nodo.getDato().intValue() < this.tail.getDato().intValue())
+            {
+                NodoDoble<T> i = this.tail;
+                while(i != null)
                 {
-                    mayorNodo = i;
-                }
-                
-                if(i == this.tail)
-                {
-                    break;
-                }
-                
-                boolean verificado = false;
-                for (int j = 0; j < verificados.length; j++) 
-                {
-                    if(i.getSiguienteNodo().getDato().intValue() == verificados[j])
+                    if(dato.intValue() == i.getDato().intValue())
                     {
-                        i = i.getSiguienteNodo().getSiguienteNodo();
-                        verificado = true;
+                        System.out.println("El dato: " + dato.intValue() + 
+                                " no se puede agregar porque ya se encuentra en la lista");
+                        break;
                     }
-                }
-                if(verificado == false)
-                {
-                    i = i.getSiguienteNodo();
+                    else if(dato.intValue() < i.getDato().intValue())
+                    {
+                       if(dato.intValue() > i.getNodoAnterior().getDato().intValue() )
+                       {
+                           nodo.setSiguienteNodo(i);
+                           nodo.setNodoAnterior(i.getNodoAnterior());
+                           i.getNodoAnterior().setSiguienteNodo(nodo);
+                           i.setNodoAnterior(nodo);
+                           break;
+                       }
+                    }
+                    i = i.getNodoAnterior();
                 }
             }
-         
-            cont++;
-            verificados[cont] =mayorNodo.getDato().intValue();
-            System.out.println(mayorNodo.getDato().intValue());
-            mayorNodo = this.head;
-            if(cont == this.tamaño-1)
-            {
-                z = 0;
-            }
-            
-            
         }
+        this.tamaño++;
     }
     
 }

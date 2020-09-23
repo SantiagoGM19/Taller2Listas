@@ -59,14 +59,30 @@ public class ListaDoble<T extends Number> implements Ilist<T>
     @Override
     public void MostrarDatos() 
     {
-        NodoDoble<T> i = this.head;
-        while(i != null)
+        if(this.ListaVacia() == true)
         {
-            System.out.println(i.getDato().intValue());
-            i = i.getSiguienteNodo();
+           System.out.println("La lista se encuentra vacía");
+        }
+        else
+        {
+            NodoDoble<T> i = this.head;
+            while(i != null)
+            {
+               if(i == this.head)
+               {
+                   System.out.println(i.getDato().intValue()+"(head)");
+               }
+               else
+               {
+                   System.out.println(i.getDato().intValue());
+               }
+
+                i = i.getSiguienteNodo();
+            }
         }
     }
     
+    // punto del taller
     public void ExisteDato(T dato)
     {
         NodoDoble<T> i = this.head;
@@ -75,7 +91,7 @@ public class ListaDoble<T extends Number> implements Ilist<T>
         {
             if(dato == i.getDato())
             {
-                System.out.println("El dato se encuentra en la lista");
+                System.out.println("El dato: " + dato.intValue() +  " se encuentra en la lista");
                 break;
             }
             i = i.getSiguienteNodo();
@@ -83,10 +99,11 @@ public class ListaDoble<T extends Number> implements Ilist<T>
         }
         if(cont == this.tamaño)
         {
-            System.out.println("El dato no se encuentra en la lista");
+            System.out.println("El dato: " + dato.intValue() +  " no se encuentra en la lista");
         }
     }
     
+    // punto del taller
     public void EliminarPrimerNodo()
     {
         NodoDoble<T> current = this.head.getSiguienteNodo();

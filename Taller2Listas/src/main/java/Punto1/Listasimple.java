@@ -1,4 +1,4 @@
-/*
+ /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -45,37 +45,56 @@ public class Listasimple <T extends Number> implements Ilist<T>
         
         this.tamaño++;
     }
-
+    
+    // punto del taller
     @Override
     public void EliminarUltimoNodo() 
     {
-       
-        for (Nodo<T> i = this.head; i != null; i.getSiguienteNodo()) 
+        Nodo<T> i = this.head;
+        while(i != null)
         {
-            if(i.getSiguienteNodo() == null)
+            if(i.getSiguienteNodo().getSiguienteNodo() == null)
             {
-                i = null;
+                this.suma -= i.getSiguienteNodo().getDato().intValue();
+                i.setSiguienteNodo(null);
                 this.tamaño--;
                 break;
             }
+            
+            i = i.getSiguienteNodo();
         }
+        
         
     }
 
     @Override
     public void MostrarDatos() 
     {
-        Nodo<T> i = this.head;
-        
-        while(i != null)
+        if(this.ListaVacia() == true)
         {
-            System.out.println(i.getDato().intValue());
-            i = i.getSiguienteNodo();
+           System.out.println("La lista se encuentra vacía");
+        }
+        else
+        {
+            Nodo<T> i = this.head;
+            while(i != null)
+            {
+               if(i == this.head)
+               {
+                   System.out.println(i.getDato().intValue()+"(head)");
+               }
+               else
+               {
+                   System.out.println(i.getDato().intValue());
+               }
+
+                i = i.getSiguienteNodo();
+            }
         }
     }
     
     
-    
+    //punto del taller
     public void mostrarDatoMayor()
     {
         if (this.ListaVacia() == true)
@@ -104,7 +123,7 @@ public class Listasimple <T extends Number> implements Ilist<T>
         }
     }
     
-    
+    // punto del taller
     public void mostrarDatoMenor()
     {
         if (this.ListaVacia() == true)
@@ -132,7 +151,7 @@ public class Listasimple <T extends Number> implements Ilist<T>
         }
     }
     
-    
+    // Punto del taller
     public void MostrarPromedio()
     {
         Nodo<T> i = this.head;

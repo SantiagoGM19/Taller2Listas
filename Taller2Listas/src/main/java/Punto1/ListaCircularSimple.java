@@ -52,40 +52,63 @@ public class ListaCircularSimple<T extends Number> implements Ilist<T>
         }
         this.tamaño++;
     }
-
+    
+    // punto del taller
     @Override
     public void EliminarUltimoNodo() 
     {
-        Nodo<T> i = this.head;
-        while(i != null)
+        if(this.ListaVacia() == true)
         {
-            Nodo<T>current = i.getSiguienteNodo();
-            if(current.getSiguienteNodo() == this.head)
-            {
-                current = null;
-                i.setSiguienteNodo(this.head);
-                break;
-            }
-            i = i.getSiguienteNodo();
+            System.out.println("La lista ya se encuentra vacía");
         }
-        this.tamaño--;
+        else
+        {
+            Nodo<T> i = this.head;
+            while(i != null)
+            {
+                Nodo<T>current = i.getSiguienteNodo();
+                if(current.getSiguienteNodo() == this.head)
+                {
+                    current = null;
+                    i.setSiguienteNodo(this.head);
+                    break;
+                }
+                i = i.getSiguienteNodo();
+            }
+            this.tamaño--;
+        }
     }
 
     @Override
     public void MostrarDatos() 
     {
-        Nodo<T> i = this.head;
-        while(i != null)
+        if(this.ListaVacia() == true)
         {
-            System.out.println(i.getDato().intValue());
-            if(i.getSiguienteNodo() == this.head)
+            System.out.println("La lista se encuentra vacía");
+        }
+        else
+        {
+            Nodo<T> i = this.head;
+            while(i != null)
             {
-                break;
+                if(i == this.head)
+                {
+                    System.out.println(i.getDato().intValue() + "(head)");
+                }
+                else
+                {
+                    System.out.println(i.getDato().intValue());
+                }
+                if(i.getSiguienteNodo() == this.head)
+                {
+                    break;
+                }
+                i = i.getSiguienteNodo();
             }
-            i = i.getSiguienteNodo();
         }
     }
     
+    // punto del taller
     public void UnirLista(ListaCircularSimple<T> lista)
     {
        Nodo<T> i = this.head;
